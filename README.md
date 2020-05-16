@@ -119,18 +119,18 @@ int a, b;
 
 ```python
 """Incorrect"""
-def functiona_name ( arg1,arg2)
+def function_name ( arg1,arg2)
 ```
 
  4. one whitespace after comma in arguments in a function.
 ```python
 """correct"""
-def functiona_name(arg1, arg2)
+def function_name(arg1, arg2)
 ```
 
 ```python
 """Incorrect"""
-def functiona_name(arg1,arg2)
+def function_name(arg1,arg2)
 ```
 
 ## Linter and Checkstyle Configuration:
