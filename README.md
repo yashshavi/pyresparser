@@ -1,157 +1,143 @@
-# pyresparser
+# Formatting Document #
+This document provides the rules for Formatting of code. This document specifies the do's and don'ts for code formatting with the help of examples. The document covers Vertical Formatting, Horizontal Formatting and Liter's used in code for different language.
+
+## Vertical Formatting:
+**1. LOC**
+
+LOC in a file should be less than 100.
+
+**2. NewsPaper Metaphor**
+
+Proper name of the files and functions. Name should be able to represent the high level overview of the concepts that
+it will be containing.
+```bash
+""" The following example shows correct usage of NewsPaper Metaphor """
+login.py
+
+""" name of the function is giving the high level concept overview
+that is the function is used for login
+"""
+
+def login(username, password):
+    """ do tasks to login""
 
 ```
-A simple resume parser used for extracting information from resumes
+
+**3. Vertical openness between concepts**
+
+1. Single lineBreak between concepts.
+```bash
+"""Correct"""
+def login(username, password):
+    """do tasks"""
+
+def signup():
+    """do tasks"""
+
+```
+```bash
+"""Incorrect"""
+def login(username, password):
+   """do tasks"""
+def signup():
+    """do tasks"""
 ```
 
-Built with ❤︎ and :coffee: by  [Omkar Pathak](https://github.com/OmkarPathak)
+2. Single lineBreak before commenting the method.
 
----
+**4. Vertical Density**
 
-[![GitHub stars](https://img.shields.io/github/stars/OmkarPathak/pyresparser.svg)](https://github.com/OmkarPathak/pyresparser/stargazers)
-[![Downloads](https://pepy.tech/badge/pyresparser)](https://pepy.tech/project/pyresparser)
-![Python](https://img.shields.io/badge/Python-3.7-brightgreen.svg)
-[![GitHub](https://img.shields.io/github/license/omkarpathak/pyresparser.svg)](https://github.com/OmkarPathak/pyresparser/blob/master/LICENSE) ![PyPI - Python Version](https://img.shields.io/pypi/pyversions/Django.svg) [![Say Thanks!](https://img.shields.io/badge/Say%20Thanks-:D-1EAEDB.svg)](https://saythanks.io/to/OmkarPathak)
-
-# Features
-
-- Extract name
-- Extract email
-- Extract mobile numbers
-- Extract skills
-- Extract total experience
-- Extract college name
-- Extract degree
-- Extract designation
-- Extract company names
-
-# Installation
-
-- You can install this package using
+No lineBreak for comments in between method.
 
 ```bash
-pip install pyresparser
+"""Correct"""
+def login(username, password):
+    status = submit(username, password)
+    #check status after submiting uername and password
+    if status:
+        print('login')
+    else :
+        print('invalid username or password')
 ```
-
-- For NLP operations we use spacy and nltk. Install them using below commands:
 
 ```bash
-# spaCy
-python -m spacy download en_core_web_sm
+"""Incorrect """
+    def login(username, password):
+    status = submit(username, password)
 
-# nltk
-python -m nltk.downloader words
+    #check status after submiting uername and password
+
+    if status:
+        print('login')
+    else :
+        print('invalid username or password')
+
 ```
 
-# Supported File Formats
+**5. Variable declaration**
+At the top of a module or functions where it will be going to use (for c#)
 
-- PDF and DOCx files are supported on all Operating Systems
-- If you want to extract DOC files you can install [textract](https://textract.readthedocs.io/en/stable/installation.html) for your OS (Linux, MacOS)
-- Note: You just have to install textract (and nothing else) and doc files will get parsed easily
+```
+//Example
+ public void input():
+    int a, int b;
+    //do tasks
+```
 
-# Usage
 
-- Import it in your Python project
+## Horizontal Formatting:
+**1. Number of characters**
+
+Number of characters in a single line should not exceed 100.
+
+**2. Horizontal openness and density**
+
+1. one whitespace between operator and operands.
+
+```bash
+"""Correct"""
+c = a + b
+```
+
+```c#
+"""Incorrect"""
+c=a+b
+```
+
+2. one whitespace after comma while declaring multiple variables in a single line.
+
+```c
+//Example
+int a, b;
+```
+
+ 3. no whitespace between name of function and parenthesis.
+```bash
+"""correct"""
+    def function_name(arg1, arg2)
+```
 
 ```python
-from pyresparser import ResumeParser
-data = ResumeParser('/path/to/resume/file').get_extracted_data()
+"""Incorrect"""
+def functiona_name ( arg1,arg2)
 ```
 
-# CLI
-
-For running the resume extractor you can also use the `cli` provided
-
-```bash
-usage: pyresparser [-h] [-f FILE] [-d DIRECTORY] [-r REMOTEFILE]
-                   [-sf SKILLSFILE]
-
-optional arguments:
-  -h, --help                                show this help message and exit
-  -f FILE, --file FILE                      resume file to be extracted
-  -d DIRECTORY, --directory DIRECTORY       directory containing all the resumes to be extracted
-  -r REMOTEFILE, --remotefile REMOTEFILE    remote path for resume file to be extracted
-  -sf SKILLSFILE, --skillsfile SKILLSFILE   custom skills CSV file against which skills are searched for
+ 4. one whitespace after comma in arguments in a function.
+```python
+"""correct"""
+def functiona_name(arg1, arg2)
 ```
 
-For extracting data from a single resume file, use
-
-```bash
-pyresparser -f <resume_file_path>
+```python
+"""Incorrect"""
+def functiona_name(arg1,arg2)
 ```
 
-For extracting data from several resumes, place them in a directory and then execute
+## Linter and Checkstyle Configuration:
+**1. For Python**
 
-```bash
-pyresparser -d <resume_directory_path>
-```
+Pylint
 
-For extracting data from remote resumes, execute
-
-```bash
-pyresparser -r <path_to_remote_resume_file>
-```
-
-For extracting data against your specified skills, create a CSV file with no headers. Sample file can be found [here](pyresparser/skills.csv)
-
-```bash
-pyresparser -sf <path_to_custom_skills_file>
-```
-
-# Notes:
-
-- If you are running the app on windows, then you can only extract .docs and .pdf files
-
-# Result
-
-The module would return a list of dictionary objects with result as follows:
-
-```
-[
-  {
-    'college_name': ['Marathwada Mitra Mandal’s College of Engineering'],
-    'company_names': None,
-    'degree': ['B.E. IN COMPUTER ENGINEERING'],
-    'designation': ['Manager',
-                    'TECHNICAL CONTENT WRITER',
-                    'DATA ENGINEER'],
-    'email': 'omkarpathak27@gmail.com',
-    'mobile_number': '8087996634',
-    'name': 'Omkar Pathak',
-    'no_of_pages': 3,
-    'skills': ['Operating systems',
-              'Linux',
-              'Github',
-              'Testing',
-              'Content',
-              'Automation',
-              'Python',
-              'Css',
-              'Website',
-              'Django',
-              'Opencv',
-              'Programming',
-              'C',
-              ...],
-    'total_experience': 1.83
-  }
-]
-```
-
-# References that helped me get here
-
-- [https://www.kaggle.com/nirant/hitchhiker-s-guide-to-nlp-in-spacy](https://www.kaggle.com/nirant/hitchhiker-s-guide-to-nlp-in-spacy)
-
-- [https://www.analyticsvidhya.com/blog/2017/04/natural-language-processing-made-easy-using-spacy-%E2%80%8Bin-python/](https://www.analyticsvidhya.com/blog/2017/04/natural-language-processing-made-easy-using-spacy-%E2%80%8Bin-python/)
-
-- [https://medium.com/@divalicious.priya/information-extraction-from-cv-acec216c3f48](https://medium.com/@divalicious.priya/information-extraction-from-cv-acec216c3f48)
-
-- **Special thanks** to dataturks for their [annotated dataset](https://dataturks.com/blog/named-entity-recognition-in-resumes.php)
-
-# Donation
-
-If you have found my softwares to be of any use to you, do consider helping me pay my internet bills. This would encourage me to create many such softwares :smile:
-
-| PayPal | <a href="https://paypal.me/omkarpathak27" target="_blank"><img src="https://www.paypalobjects.com/webstatic/mktg/logo/AM_mc_vs_dc_ae.jpg" alt="Donate via PayPal!" title="Donate via PayPal!" /></a> |
-|:-------------------------------------------:|:-------------------------------------------------------------:|
-| ₹ (INR)  | <a href="https://www.instamojo.com/@omkarpathak/" target="_blank"><img src="https://www.soldermall.com/images/pic-online-payment.jpg" alt="Donate via Instamojo" title="Donate via instamojo" /></a> |
+## contributors
+Design - Yashshavi Kashyap
+Rules - Anurag sharma, Heena Vasdani, Renu saini, Neha Mathur, Yashshavi Kashyap
